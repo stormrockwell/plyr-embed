@@ -41,6 +41,8 @@ if ( ! class_exists( 'Plyr_Embed' ) ) {
 
 			foreach ( $matches[0] as $key => $url ) {
 				$host = str_replace( '.com', '', $matches[3][ $key ] );
+				$host = str_replace( '.be.googleapis.com', 'be', $matches[3][ $key ] );
+				$host = str_replace( '.be', 'be', $matches[3][ $key ] );
 				$elem = $this->get_plyr_elem( $host, $url );
 
 				// Replace the URL with the Plyr element.
