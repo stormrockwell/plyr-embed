@@ -39,14 +39,17 @@ if ( ! class_exists( 'Plyr_Embed' ) ) {
 
 			preg_match_all( '/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|channels\/(?:\w+\/)|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?[\r\n]+/s', $content, $matches );
 
-			foreach ( $matches[0] as $key => $url ) {
-				$host = str_replace( '.com', '', $matches[3][ $key ] );
-				$host = str_replace( '.be', 'be', $matches[3][ $key ] );
-				$elem = $this->get_plyr_elem( $host, $url );
+			if ( ! empty( $matches[0] ) ) {
+				foreach ( $matches[0] as $key => $url ) {
+					$host = str_replace( '.com', '', $matches[3][ $key ] );
+					$host = str_replace( '.be', 'be', $host );
+					$elem = $this->get_plyr_elem( $host, $url );
 
-				// Replace the URL with the Plyr element.
-				$content = str_replace( $url, $elem, $content );
+					// Replace the URL with the Plyr element.
+					$content = str_replace( $url, $elem, $content );
+				}
 			}
+
 
 			return $content;
 
